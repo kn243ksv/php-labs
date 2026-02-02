@@ -6,7 +6,7 @@ Write-Host "  PHP Labs - Environment Setup" -ForegroundColor Cyan
 Write-Host "===================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Функція перевірки команди
+# Function to check if a command exists
 function Test-Command {
     param($Command)
     return [bool](Get-Command -Name $Command -ErrorAction SilentlyContinue)
