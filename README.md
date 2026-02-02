@@ -29,14 +29,9 @@ cd php-labs
 .\setup\install-basic.ps1  # Windows (PowerShell)
 ```
 
-Запустіть локальний сервер для перегляду завдань у браузері,
-та відкрийте у браузері: <http://localhost:8000>
+[Запустіть локальний сервер](docs/running-project.md) та відкрийте: <http://localhost:8000>
 
-```bash
-php -S localhost:8000
-```
-
-Детальні інструкції встановлення для Windows, macOS та Linux: [setup/README.md](setup/README.md)
+Детальні інструкції: [Налаштування середовища](setup/README.md)
 
 ## Лабораторні роботи
 
@@ -50,11 +45,13 @@ php -S localhost:8000
 
 ## Критерії прийняття
 
-- [Структура репозиторію](acceptance-criteria/README.md#структура-репозиторію)
-- [Неймінг гілок](acceptance-criteria/README.md#неймінг-гілок)
-- [Вимоги до комітів](acceptance-criteria/README.md#вимоги-до-комітів)
-- [Формат коміт-повідомлень](acceptance-criteria/README.md#формат-коміт-повідомлень)
+- [Структура репозиторію](docs/acceptance-criteria.md#структура-репозиторію)
+- [Неймінг гілок](docs/acceptance-criteria.md#неймінг-гілок)
+- [Вимоги до комітів](docs/acceptance-criteria.md#вимоги-до-комітів)
+- [Формат коміт-повідомлень](docs/acceptance-criteria.md#формат-коміт-повідомлень)
 
 ## Документація
 
-- [Інструкція з роботи з Git](GIT_GUIDE.md)
+- [Запуск проєкту](docs/running-project.md)
+- [Інструкція з роботи з Git](docs/git-guide.md)
+- [Налаштування середовища](setup/README.md)
