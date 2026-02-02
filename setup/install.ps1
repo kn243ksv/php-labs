@@ -1,129 +1,121 @@
 # PHP Labs - Windows Setup Script
-# Запускати в PowerShell від імені адміністратора
+# Can be run in regular PowerShell (no admin required)
 
 Write-Host "===================================" -ForegroundColor Cyan
-Write-Host "  PHP Labs - Установка середовища" -ForegroundColor Cyan
+Write-Host "  PHP Labs - Environment Setup" -ForegroundColor Cyan
 Write-Host "===================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Перевірка прав адміністратора
-$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-if (-not $isAdmin) {
-    Write-Host "ПОМИЛКА: Запустіть PowerShell від імені адміністратора!" -ForegroundColor Red
-    Write-Host "Клацніть правою кнопкою на PowerShell -> 'Run as Administrator'" -ForegroundColor Yellow
-    exit 1
-}
-
-# Функція перевірки команди
+# Function to check if a command exists
 function Test-Command {
     param($Command)
     return [bool](Get-Command -Name $Command -ErrorAction SilentlyContinue)
 }
 
-# Встановлення Chocolatey
-function Install-Chocolatey {
-    Write-Host ">>> Перевірка Chocolatey..." -ForegroundColor Yellow
+# Install Scoop
+function Install-Scoop {
+    Write-Host ">>> Checking Scoop..." -ForegroundColor Yellow
 
-    if (Test-Command "choco") {
-        Write-Host "Chocolatey вже встановлено: $(choco --version)" -ForegroundColor Green
-    } else {
-        Write-Host "Встановлюю Chocolatey..." -ForegroundColor Yellow
-        Set-ExecutionPolicy Bypass -Scope Process -Force
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    if (Test-Command "scoop") {
+        Write-Host "Scoop already installed: $(scoop --version)" -ForegroundColor Green
+    }
+    else {
+        Write-Host "Installing Scoop..." -ForegroundColor Yellow
+        Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+        Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
 
-        # Оновити PATH
+        # Update PATH
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 
-        Write-Host "Chocolatey встановлено!" -ForegroundColor Green
+        Write-Host "Scoop installed!" -ForegroundColor Green
     }
     Write-Host ""
 }
 
-# Встановлення PHP
+# Install PHP
 function Install-PHP {
-    Write-Host ">>> Встановлення PHP..." -ForegroundColor Yellow
+    Write-Host ">>> Installing PHP..." -ForegroundColor Yellow
 
     if (Test-Command "php") {
-        Write-Host "PHP вже встановлено: $(php -v | Select-Object -First 1)" -ForegroundColor Green
-    } else {
-        choco install php -y
-        refreshenv
-        Write-Host "PHP встановлено!" -ForegroundColor Green
+        Write-Host "PHP already installed: $(php -v | Select-Object -First 1)" -ForegroundColor Green
+    }
+    else {
+        scoop install php
+        Write-Host "PHP installed!" -ForegroundColor Green
     }
     Write-Host ""
 }
 
-# Встановлення Composer
+# Install Composer
 function Install-Composer {
-    Write-Host ">>> Встановлення Composer..." -ForegroundColor Yellow
+    Write-Host ">>> Installing Composer..." -ForegroundColor Yellow
 
     if (Test-Command "composer") {
-        Write-Host "Composer вже встановлено: $(composer --version)" -ForegroundColor Green
-    } else {
-        choco install composer -y
-        refreshenv
-        Write-Host "Composer встановлено!" -ForegroundColor Green
+        Write-Host "Composer already installed: $(composer --version)" -ForegroundColor Green
+    }
+    else {
+        scoop install composer
+        Write-Host "Composer installed!" -ForegroundColor Green
     }
     Write-Host ""
 }
 
-# Встановлення MySQL
+# Install MySQL
 function Install-MySQL {
-    Write-Host ">>> Встановлення MySQL..." -ForegroundColor Yellow
+    Write-Host ">>> Installing MySQL..." -ForegroundColor Yellow
 
     if (Test-Command "mysql") {
-        Write-Host "MySQL вже встановлено: $(mysql --version)" -ForegroundColor Green
-    } else {
-        choco install mysql -y
-        refreshenv
-        Write-Host "MySQL встановлено!" -ForegroundColor Green
+        Write-Host "MySQL already installed: $(mysql --version)" -ForegroundColor Green
+    }
+    else {
+        scoop install mysql
+        Write-Host "MySQL installed!" -ForegroundColor Green
     }
     Write-Host ""
 }
 
-# Встановлення Git (опціонально)
+# Install Git (optional)
 function Install-Git {
-    Write-Host ">>> Перевірка Git..." -ForegroundColor Yellow
+    Write-Host ">>> Checking Git..." -ForegroundColor Yellow
 
     if (Test-Command "git") {
-        Write-Host "Git вже встановлено: $(git --version)" -ForegroundColor Green
-    } else {
-        Write-Host "Встановлюю Git..." -ForegroundColor Yellow
-        choco install git -y
-        refreshenv
-        Write-Host "Git встановлено!" -ForegroundColor Green
+        Write-Host "Git already installed: $(git --version)" -ForegroundColor Green
+    }
+    else {
+        Write-Host "Installing Git..." -ForegroundColor Yellow
+        scoop install git
+        Write-Host "Git installed!" -ForegroundColor Green
     }
     Write-Host ""
 }
 
-# Головна функція
-Write-Host "Починаю встановлення..." -ForegroundColor Cyan
+# Main function
+Write-Host "Starting installation..." -ForegroundColor Cyan
 Write-Host ""
 
-Install-Chocolatey
+Install-Scoop
 Install-PHP
 Install-Composer
 Install-MySQL
 Install-Git
 
 Write-Host "===================================" -ForegroundColor Cyan
-Write-Host "  Встановлення завершено!" -ForegroundColor Green
+Write-Host "  Installation completed!" -ForegroundColor Green
 Write-Host "===================================" -ForegroundColor Cyan
 Write-Host ""
 
-Write-Host "Перевірка версій:" -ForegroundColor Yellow
-try { Write-Host "  PHP:      $(php -v | Select-Object -First 1)" -ForegroundColor White } catch { Write-Host "  PHP:      не встановлено" -ForegroundColor Red }
-try { Write-Host "  Composer: $(composer --version 2>&1)" -ForegroundColor White } catch { Write-Host "  Composer: не встановлено" -ForegroundColor Red }
-try { Write-Host "  MySQL:    $(mysql --version 2>&1)" -ForegroundColor White } catch { Write-Host "  MySQL:    не встановлено" -ForegroundColor Red }
-try { Write-Host "  Git:      $(git --version)" -ForegroundColor White } catch { Write-Host "  Git:      не встановлено" -ForegroundColor Red }
+Write-Host "Version check:" -ForegroundColor Yellow
+try { Write-Host "  PHP:      $(php -v | Select-Object -First 1)" -ForegroundColor White } catch { Write-Host "  PHP:      not installed" -ForegroundColor Red }
+try { Write-Host "  Composer: $(composer --version 2>&1)" -ForegroundColor White } catch { Write-Host "  Composer: not installed" -ForegroundColor Red }
+try { Write-Host "  MySQL:    $(mysql --version 2>&1)" -ForegroundColor White } catch { Write-Host "  MySQL:    not installed" -ForegroundColor Red }
+try { Write-Host "  Git:      $(git --version)" -ForegroundColor White } catch { Write-Host "  Git:      not installed" -ForegroundColor Red }
 
 Write-Host ""
-Write-Host "Тепер ви можете запускати PHP файли:" -ForegroundColor Yellow
+Write-Host "Now you can run PHP files:" -ForegroundColor Yellow
 Write-Host "  php filename.php" -ForegroundColor White
 Write-Host ""
-Write-Host "Або запустити локальний сервер:" -ForegroundColor Yellow
+Write-Host "Or start a local server:" -ForegroundColor Yellow
 Write-Host "  php -S localhost:8000" -ForegroundColor White
 Write-Host ""
-Write-Host "ВАЖЛИВО: Перезапустіть термінал для оновлення PATH!" -ForegroundColor Magenta
+Write-Host "IMPORTANT: Restart the terminal to update PATH!" -ForegroundColor Magenta
 Write-Host ""
