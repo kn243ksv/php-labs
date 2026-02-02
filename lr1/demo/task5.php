@@ -80,6 +80,7 @@ $emoji = $isEven ? "✓" : "✗";
     </style>
 </head>
 <body>
+    <div style="margin-bottom:24px"><button onclick="window.location.href='index.php'" style="padding:6px 18px;font-size:16px;border-radius:8px;background:#6366f1;color:#fff;border:none;cursor:pointer;">← До демо</button></div>
     <div class="card">
         <div class="digit"><?= $digit ?></div>
         <div class="emoji"><?= $emoji ?></div>

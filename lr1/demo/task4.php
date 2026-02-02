@@ -72,6 +72,7 @@ $style = $styles[$timeOfDay];
     </style>
 </head>
 <body>
+    <div style="margin-bottom:24px"><button onclick="window.location.href='index.php'" style="padding:6px 18px;font-size:16px;border-radius:8px;background:#6366f1;color:#fff;border:none;cursor:pointer;">← До демо</button></div>
     <div class="card">
         <div class="emoji"><?= $style['emoji'] ?></div>
         <div class="time"><?= sprintf("%02d:00", $hour) ?></div>

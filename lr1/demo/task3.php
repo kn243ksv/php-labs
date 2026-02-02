@@ -63,6 +63,7 @@ $result = formatConversionResult($eur, $uah);
     </style>
 </head>
 <body>
+    <div style="margin-bottom:24px"><button onclick="window.location.href='index.php'" style="padding:6px 18px;font-size:16px;border-radius:8px;background:#6366f1;color:#fff;border:none;cursor:pointer;">← До демо</button></div>
     <div class="card">
         <h2>💶 Конвертер EUR → UAH</h2>
         <p><strong>Курс:</strong> 1 EUR = <?= $rate ?> грн</p>

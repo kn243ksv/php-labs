@@ -1,0 +1,70 @@
+/* Глобальні стилі для всіх завдань ЛР1, варіант 1 */
+body {
+  font-family: Arial, sans-serif;
+  padding: 40px;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
+  min-height: 100vh;
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 18px 24px 12px 24px;
+  margin: 40px auto 30px auto;
+  width: fit-content;
+  position: static;
+}
+
+.nav-center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.nav label {
+  font-size: 15px;
+  color: #374151;
+  margin-right: 8px;
+}
+.nav select {
+  font-size: 15px;
+  padding: 4px 10px;
+  margin-right: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #f1f5f9;
+}
+.nav select:focus {
+  outline: 2px solid #6366f1;
+}
+.nav .lab-switch {
+  margin-right: 16px;
+}
+.nav .variant-switch {
+  margin-right: 16px;
+}
+@media (max-width: 600px) {
+  .nav {
+    left: 0;
+    right: 0;
+    top: 0;
+    border-radius: 0;
+    padding: 10px 5px;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto 20px auto;
+  }
+  .nav-center {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+.card {
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
