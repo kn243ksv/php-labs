@@ -12,7 +12,7 @@ ob_start();
     <?php
     echo "<p style='margin-left: 20px;'>Мій <b>місто</b> прокидається вранці,</p>";
     echo "<p style='margin-left: 20px;'>Трамваї дзвенять у <i>тумані</i>,</p>";
-    echo "<p style='margin-left: 20px;'>Вулиці повні людей і машин,</p>";
+    echo "<p style='margin-left: 20px;'>Вулиsці повні людей і машин,</p>";
     echo "<p style='margin-left: 20px;'>І кожен кудись поспішає один.</p>";
     ?>
 </div>
