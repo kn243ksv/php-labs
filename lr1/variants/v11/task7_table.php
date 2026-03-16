@@ -1,55 +1,44 @@
 <?php
 /**
- * Завдання 6.1: Смугаста таблиця 11x8
+ * Завдання 6.1: Шахова таблиця 4x11
  */
+require_once __DIR__ . '/layout.php';
 
-require_once dirname(__DIR__, 3) . '/shared/helpers/dev_reload.php';
-
-function generateStripedTable(int $rows, int $cols, string $color1, string $color2): string
+function generateChessboard(int $rows, int $cols, string $color1, string $color2): string
 {
-    $html = "<table class='chessboard'>";
+    // Таблиця з легкою тінню та рамкою
+    $html = "<table class='chessboard' style='border-collapse: collapse; margin: 0 auto; border: 2px solid #0f172a; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);'>";
+    
     for ($i = 0; $i < $rows; $i++) {
-        $bgColor = ($i % 2 === 0) ? $color1 : $color2;
         $html .= "<tr>";
         for ($j = 0; $j < $cols; $j++) {
-            $html .= "<td style='background-color:{$bgColor};'></td>";
+            // Чергування кольорів для шахової дошки
+            $cellBg = (($i + $j) % 2 === 0) ? $color1 : $color2;
+            
+            $html .= "<td style='background-color:{$cellBg}; width: 45px; height: 45px; border: 1px solid rgba(0,0,0,0.1);'></td>";
         }
         $html .= "</tr>";
     }
+    
     $html .= "</table>";
     return $html;
 }
 
-$rows = 11;
-$cols = 8;
-$color1 = '#6366f1';
-$color2 = '#a5b4fc';
+// 1. Параметри дошки
+$rows = 4;
+$cols = 11;
+$boardColor1 = '#000000'; // Темні комірки (наприклад, синій)
+$boardColor2 = '#ffffff'; // Світлі комірки (світло-синій)
 
-$table = generateStripedTable($rows, $cols, $color1, $color2);
-?>
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Завдання 6.1 — Смугаста таблиця</title>
-    <link rel="stylesheet" href="../../demo/demo.css">
-</head>
-<body class="task7-table-body body-with-header">
-    <header class="header-fixed">
-        <div class="header-left">
-            <a href="/" class="header-btn">Головна</a>
-            <a href="index.php" class="header-btn">← Варіант 30</a>
-            <a href="/lr1/demo/task7_table.php?from=v30" class="header-btn header-btn-demo">Demo</a>
+$table = generateChessboard($rows, $cols, $boardColor1, $boardColor2);
+
+$content = '
+    <div style="background-color: ' . $backgroundColor . '; color: ' . $textColor . '; padding: 40px 20px; border-radius: 12px; text-align: center;">
+        <h1 style="margin-top: 0; font-size: 26px;">🏁 Шахова таблиця ' . $rows . 'x' . $cols . '</h1>
+        <div class="params" style="margin-bottom: 30px; color: ' . $paramsColor . '; font-family: monospace; font-size: 16px;">
+            generateChessboard(' . $rows . ', ' . $cols . ')
         </div>
-        <div class="header-center"></div>
-        <div class="header-right">В-30 / Завд. 6.1</div>
-    </header>
+        ' . $table . '
+    </div>';
 
-    <h1>🎨 Смугаста таблиця <?= $rows ?>x<?= $cols ?></h1>
-    <div class="params">generateStripedTable(<?= $rows ?>, <?= $cols ?>)</div>
-
-    <?= $table ?>
-
-    <?= devReloadScript() ?>
-</body>
-</html>
+renderVariantLayout($content, 'Завдання 6.1', 'task7-table-body');

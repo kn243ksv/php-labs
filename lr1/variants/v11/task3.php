@@ -1,37 +1,39 @@
 <?php
 /**
- * Завдання 2: Конвертер валют (UAH → EUR)
+ * Завдання 2: Конвертер валют (USD → UAH)
  *
- * 48600 грн → євро, курс 47.50, комісія 3%
+ * 150 доларів → грн, курс 39.20
  */
 require_once __DIR__ . '/layout.php';
 
-function convertUahToEur(float $uah, float $rate): float
+function convertUsdToUah(float $usd, float $rate): float
 {
-    return round($uah / $rate, 2);
+    // Оскільки ми переводимо долари в гривні, потрібно множити
+    return round($usd * $rate, 2);
 }
 
-function applyCommission(float $amount, float $commissionPercent): float
-{
-    return round($amount * (1 - $commissionPercent / 100), 2);
-}
+// Вхідні дані згідно з Варіантом 11
+$usd = 150;
+$rate = 39.20;
 
-// Вхідні дані (варіант 11)
-$uah = 48600;
-$rate = 47.50;
-$commission = 3;
+$uah = convertUsdToUah($usd, $rate);
 
-$eurBeforeCommission = convertUahToEur($uah, $rate);
-$eurAfterCommission = applyCommission($eurBeforeCommission, $commission);
+// Форматуємо число, щоб завжди відображалися два знаки після коми (5880.00)
+$formattedUah = number_format($uah, 2, '.', '');
 
 $content = '<div class="card">
-    <h2>💶 Конвертер UAH → EUR</h2>
-    <p><strong>Курс:</strong> 1 EUR = ' . $rate . ' грн</p>
-    <p><strong>Комісія банку:</strong> ' . $commission . '%</p>
-    <div class="result">' . $uah . ' грн = ' . $eurBeforeCommission . ' євро</div>
-    <div class="result" style="margin-top:10px;background:#d1fae5;">Після комісії ' . $commission . '% — <strong>' . $eurAfterCommission . '</strong> євро</div>
-    <p class="info">convertUahToEur(' . $uah . ', ' . $rate . ') = ' . $eurBeforeCommission . '</p>
-    <p class="info">applyCommission(' . $eurBeforeCommission . ', ' . $commission . ') = ' . $eurAfterCommission . '</p>
+    <h2>💵 Конвертер USD → UAH</h2>
+    <p><strong>Курс:</strong> 1 долар = ' . $rate . ' грн</p>
+    <p><strong>Сума:</strong> ' . $usd . ' доларів</p>
+    
+    <div class="result" style="background:#d1fae5; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 16px;">
+        Очікуваний результат: <strong>"' . $usd . ' доларів можна обміняти на ' . $formattedUah . ' грн"</strong>
+    </div>
+    
+    <p class="info" style="margin-top: 15px; font-family: monospace; color: #666; font-size: 14px;">
+        convertUsdToUah(' . $usd . ', ' . $rate . ') = ' . $uah . '
+    </p>
 </div>';
 
-renderVariantLayout($content, 'Завдання 2', 'task3-body');
+renderVariantLayout($content, 'Завдання 2', 'task2-body');
+

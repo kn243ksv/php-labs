@@ -1,31 +1,31 @@
 <?php
 /**
- * Завдання 6.2: 20 зелених трикутників на сірому тлі (розмір зростає)
+ * Завдання 6.2: 9 синіх кіл на білому тлі
  */
+require_once __DIR__ . '/layout.php';
 
-require_once dirname(__DIR__, 3) . '/shared/helpers/dev_reload.php';
-
-function generateGrowingTriangles(int $n): string
+function generateBlueCircles(int $n): string
 {
-    $html = "<div style='position:relative;width:100vw;height:100vh;background:#374151;overflow:hidden;'>";
+    // Використовуємо контейнер з білим фоном (додав inline-стилі для впевненості)
+    $html = "<div class='shapes-container' style='background-color: #ffffff; position: relative; width: 100%; height: 60vh; min-height: 400px; overflow: hidden; border-radius: 12px; border: 1px solid #e2e8f0;'>";
 
     for ($i = 0; $i < $n; $i++) {
-        $size = 20 + $i * 5;
+        // Генеруємо випадковий розмір та позицію для кожного кола
+        $size = mt_rand(40, 100); 
         $top = mt_rand(5, 85);
         $left = mt_rand(5, 85);
         $opacity = mt_rand(70, 100) / 100;
 
-        $halfSize = (int)($size / 2);
         $html .= "<div style='
-            position:absolute;
-            top:{$top}%;
-            left:{$left}%;
-            width:0;
-            height:0;
-            border-left:{$halfSize}px solid transparent;
-            border-right:{$halfSize}px solid transparent;
-            border-bottom:{$size}px solid #10b981;
-            opacity:{$opacity};
+            position: absolute;
+            top: {$top}%;
+            left: {$left}%;
+            width: {$size}px;
+            height: {$size}px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            opacity: {$opacity};
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.4);
         '></div>";
     }
 
@@ -33,33 +33,13 @@ function generateGrowingTriangles(int $n): string
     return $html;
 }
 
-$n = 20;
-$triangles = generateGrowingTriangles($n);
-?>
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Завдання 6.2 — Зелені трикутники</title>
-    <link rel="stylesheet" href="../../demo/demo.css">
-</head>
-<body class="task7-circles-body">
-    <header class="header-fixed">
-        <div class="header-left">
-            <a href="/" class="header-btn">Головна</a>
-            <a href="index.php" class="header-btn">← Варіант 30</a>
-            <a href="/lr1/demo/task7_squares.php?from=v30" class="header-btn header-btn-demo">Demo</a>
-        </div>
-        <div class="header-center"></div>
-        <div class="header-right">В-30 / Завд. 6.2</div>
-    </header>
+$n = 9;
+$circles = generateBlueCircles($n);
 
-    <?= $triangles ?>
+// Додав трохи стилів для тексту, щоб він добре читався на світлому фоні сайту
+$content = $circles . '
+    <div class="circles-func" style="color: #1e293b; background: #f8fafc; border: 1px solid #e2e8f0;">generateBlueCircles(' . $n . ')</div>
+    <div class="circles-counter" style="color: #1e293b; background: #f8fafc; border: 1px solid #e2e8f0;">🔵 Кіл: ' . $n . '</div>
+    <p class="circles-info" style="color: #64748b;">Оновіть сторінку для нової композиції 🔄</p>';
 
-    <div class="circles-func">generateGrowingTriangles(<?= $n ?>)</div>
-    <div class="circles-counter">🔺 Трикутників: <?= $n ?></div>
-    <p class="circles-info">Оновіть сторінку для нової композиції 🔄</p>
-
-    <?= devReloadScript() ?>
-</body>
-</html>
+renderVariantLayout($content, 'Завдання 6.2', 'task7-circles-body');
