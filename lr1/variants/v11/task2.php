@@ -2,7 +2,7 @@
 /**
  * Завдання 1: Форматований текст
  *
- * Вірш про художника з форматуванням: <b>, <i>, margin-left
+ * Вірш про місто з форматуванням: <b>, <i>, margin-left
  */
 require_once __DIR__ . '/layout.php';
 
@@ -10,10 +10,10 @@ ob_start();
 ?>
 <div class="poem">
     <?php
-    echo "<p style='margin-left: 20px;'>Пензлик <b>художника</b> торкає полотно,</p>";
-    echo "<p style='margin-left: 20px;'>Фарби <i>змішуються</i> у дивний танок,</p>";
-    echo "<p style='margin-left: 20px;'>Картина оживає поволі й чудно,</p>";
-    echo "<p style='margin-left: 20px;'>А муза шепоче свій тихий знак.</p>";
+    echo "<p style='margin-left: 20px;'>Мій <b>місто</b> прокидається вранці,</p>";
+    echo "<p style='margin-left: 20px;'>Трамваї дзвенять у <i>тумані</i>,</p>";
+    echo "<p style='margin-left: 20px;'>Вулиці повні людей і машин,</p>";
+    echo "<p style='margin-left: 20px;'>І кожен кудись поспішає один.</p>";
     ?>
 </div>
 <?php
