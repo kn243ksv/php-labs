@@ -2,7 +2,7 @@
 /**
  * Завдання 5: Тризначне число
  *
- * Число 581: сума цифр=14, зворотне=185, паліндром=ні
+ * Число 586: сума цифр=19, зворотне=685, найбільше число=865
  */
 require_once __DIR__ . '/layout.php';
 
@@ -22,13 +22,22 @@ function reverseNumber(int $number): int
     return $d3 * 100 + $d2 * 10 + $d1;
 }
 
-function isPalindrome(int $number): bool
+function getMaxNumber(int $number): int
 {
-    return $number === reverseNumber($number);
+    $d1 = (int) floor($number / 100);
+    $d2 = (int) floor(($number % 100) / 10);
+    $d3 = $number % 10;
+    
+    // Створюємо масив з цифр та сортуємо його за спаданням (від найбільшої до найменшої)
+    $digits = [$d1, $d2, $d3];
+    rsort($digits); 
+    
+    // Збираємо число назад
+    return $digits[0] * 100 + $digits[1] * 10 + $digits[2];
 }
 
-// Вхідні дані (варіант 11)
-$number = 581;
+// Вхідні дані (за вашим завданням)
+$number = 586;
 
 $d1 = (int)($number / 100);
 $d2 = (int)(($number % 100) / 10);
@@ -36,9 +45,7 @@ $d3 = $number % 10;
 
 $sum = sumOfDigits($number);
 $reversed = reverseNumber($number);
-$palindrome = isPalindrome($number);
-$palindromeText = $palindrome ? "так" : "ні";
-$palindromeColor = $palindrome ? "#10b981" : "#ef4444";
+$maxNum = getMaxNumber($number);
 
 $content = '<div class="task6-container">
     <div class="card">
@@ -69,10 +76,10 @@ $content = '<div class="task6-container">
         </div>
         <div class="result-row">
             <div>
-                <span>3. Паліндром?</span>
-                <div class="func">isPalindrome(' . $number . ')</div>
+                <span>3. Найбільше число</span>
+                <div class="func">getMaxNumber(' . $number . ')</div>
             </div>
-            <span class="result-value" style="color:' . $palindromeColor . '">' . $palindromeText . '</span>
+            <span class="result-value" style="color: #3b82f6;">' . $maxNum . '</span>
         </div>
     </div>
 </div>';
