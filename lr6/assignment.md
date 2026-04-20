@@ -2,6 +2,8 @@
 
 **Тема:** Знайомство з Laravel. Встановлення, конфігурація, робота з БД та HTTP. Eloquent ORM, Auth, CRUD.
 
+**Джерело:** [laravel_lab6.pdf](https://learn.ztu.edu.ua/pluginfile.php/462165/mod_resource/content/1/laravel_lab6.pdf) · локальна копія: [LARAVEL LAB 6.pdf](LARAVEL%20LAB%206.pdf)
+
 ## Частина 1 — Базовий додаток
 
 ### 1. Встановлення Laravel
