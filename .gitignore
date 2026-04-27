@@ -30,5 +30,9 @@ Thumbs.db
 *.swp
 *.swo
 
-# Source PDFs (lab assignment originals)
+# Source PDFs (lab assignment originals — tracked via LFS on original machine)
 lr5/*.pdf
+lr1/*.pdf
+lr2/*.pdf
+lr3/*.pdf
+lr4/*.pdf
